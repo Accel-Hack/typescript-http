@@ -28,12 +28,15 @@ class HttpClient {
     return new Promise((resolve, reject) => {
       fetch(url, option)
         .then((response) => {
-          if (response.status != HttpStatus.OK) {
-            // status code of http connection
+          if (Math.floor(response.status / 100) == 2) {
+            // status code of 2xx
             // map status code to entity
             resolve(ResponseSet.error<E>(response.status, response.statusText))
           } else {
-            response.json().then((json) => resolve(ResponseSet.decode<E>(json, decoder)))
+            response
+              .json()
+              .then((json) => resolve(ResponseSet.decode<E>(json, decoder)))
+              .catch((err) => reject(err))
           }
         })
         // It will only reject on network failure or if anything prevented the request from completing.

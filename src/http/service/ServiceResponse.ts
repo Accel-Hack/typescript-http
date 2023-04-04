@@ -11,7 +11,7 @@ class ServiceResponse<E> {
   }
 
   public success(func: (result: E) => void): ServiceResponse<E> {
-    if (this.responseSet.statusCode == HttpStatus.OK && !this.responseSet.errors) {
+    if (Math.floor(this.responseSet.statusCode / 100) == 2 && !this.responseSet.errors) {
       this.responseSet.results?.forEach((res) => {
         if (res.operationStatus && res.result) {
           return func(res.result)
