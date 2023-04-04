@@ -6,7 +6,7 @@ type RequestProps<E extends Operand> = {
 }
 
 class Request<E extends Operand> {
-  timestamp: number
+  timestamp: number = Date.now()
   operands: E[]
 
   constructor(props: RequestProps<E>) {
