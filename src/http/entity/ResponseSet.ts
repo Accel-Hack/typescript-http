@@ -37,6 +37,22 @@ class ResponseSet<E> {
     this.errors = props.errors
   }
 
+  private static buildResults<E>(result: E | E[]): Response<E>[] {
+    return (Array.isArray(result) ? result : [result]).map(
+      (_: E, index: number) => new Response({ operationKey: index, operationStatus: true, result: _ }),
+    )
+  }
+
+  static ok<E>(result: E | E[]): ResponseSet<E> {
+    const props = {
+      timestamp: Date.now(),
+      statusCode: 200,
+      message: 'ok',
+      results: this.buildResults(result),
+    } as ResponseSetProps<E>
+    return new ResponseSet(props)
+  }
+
   static error<E>(statusCode: number, message: string): ResponseSet<E> {
     const props = {
       timestamp: Date.now(),

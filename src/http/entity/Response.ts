@@ -4,7 +4,7 @@ type ResponseProps<E> = {
   operationKey: number
   operationStatus: boolean
   result: E | undefined
-  errors: ResponseError[] | undefined
+  errors?: ResponseError[]
 }
 
 class Response<E> {
@@ -13,7 +13,7 @@ class Response<E> {
   readonly result: E | undefined
   readonly errors: ResponseError[] | undefined
 
-  private constructor(props: ResponseProps<E>) {
+  constructor(props: ResponseProps<E>) {
     this.operationKey = props.operationKey
     this.operationStatus = props.operationStatus
     this.errors = props.errors
