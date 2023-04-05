@@ -15,7 +15,7 @@ export class ClientUtils {
     return this.isX(status, 5)
   }
 
-  private static isX(status: number, denominator: number): boolean {
-    return Math.floor(status / (denominator * 100)) == 2
+  private static isX(status: number, expected: number): boolean {
+    return Math.floor(status / 100) == expected
   }
 }
