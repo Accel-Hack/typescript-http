@@ -6,12 +6,12 @@ type RequestProps<E extends Operand> = {
 }
 
 class Request<E extends Operand> {
-  public timestamp: number = Date.now()
-  public operands: E[]
+  timestamp: number = Date.now()
+  operands: E[]
 
-  constructor(props: RequestProps<E>) {
-    this.timestamp = props.timestamp ?? Date.now()
-    this.operands = props.operands
+  constructor(props: RequestProps<E> | undefined) {
+    this.timestamp = props?.timestamp ?? Date.now()
+    this.operands = props?.operands ?? []
   }
 }
 

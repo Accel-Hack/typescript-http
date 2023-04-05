@@ -1,5 +1,6 @@
 import ResponseSet from './entity/ResponseSet'
 import HttpStatus from './enum/HttpStatus'
+import { ClientUtils } from '../utils/ClientUtils'
 
 class HttpClient {
   private static defaultConfig = {
@@ -28,7 +29,7 @@ class HttpClient {
     return new Promise((resolve, reject) => {
       fetch(url, option)
         .then((response) => {
-          if (Math.floor(response.status / 100) == 2) {
+          if (ClientUtils.is2xx(response.status)) {
             // status code of 2xx
             // map status code to entity
             resolve(ResponseSet.error<E>(response.status, response.statusText))
