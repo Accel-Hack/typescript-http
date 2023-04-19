@@ -29,8 +29,8 @@ class HttpClient {
     return new Promise((resolve, reject) => {
       fetch(url, option)
         .then((response) => {
-          if (ClientUtils.is2xx(response.status)) {
-            // status code of 2xx
+          if (!ClientUtils.is2xx(response.status)) {
+            // status code of not 2xx
             // map status code to entity
             resolve(ResponseSet.error<E>(response.status, response.statusText))
           } else {
